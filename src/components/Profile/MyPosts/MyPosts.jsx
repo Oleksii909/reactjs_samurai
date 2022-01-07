@@ -8,7 +8,7 @@ const MyPosts = (props) => {
             My Posts
             <div>
                 <textarea></textarea>
-                <button>Add Post</button>
+                <button onClick={() => alert('Hi Oleksii')}>Add Post</button>
             </div>
             <div className={s.posts}>
                 {postsElements}
