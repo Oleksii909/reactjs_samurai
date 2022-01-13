@@ -1,11 +1,6 @@
-import dialogsReducer from "./dialogs-reducer";
 import profileReducer from "./profile-reducer";
+import dialogsReducer from "./dialogs-reducer";
 import sidebarReducer from "./sidebar-reducer";
-
-const ADD_POST = 'ADD-POST';
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT';
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY';
-const SEND_MESSAGE = 'ADD-NEW-MESSAGE';
 
 let store = {
     _state: {
@@ -34,7 +29,7 @@ let store = {
                 {id: 4, message: 'Yo'},
                 {id: 5, message: 'Yo'}
             ],
-            newMessageBody: 'Hey that is my new message to you',
+            newMessageBody: ""
         },
         sidebar: {}
     },
@@ -43,19 +38,22 @@ let store = {
     },
 
     getState() {
+        debugger;
         return this._state;
     },
     subscribe(observer) {
         this._callSubscriber = observer;  // observer
     },
 
-    dispatch(action) { // { type: 'ADD-POST' }
-        this._state.profilePage = profileReducer(this._state.profilePage, action)
-        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action)
-        this._state.sidebar = sidebarReducer(this._state.sidebar, action)
+    dispatch(action) {
+        this._state.profilePage = profileReducer(this._state.profilePage, action);
+        this._state.dialogsPage = dialogsReducer(this._state.dialogsPage, action);
+        this._state.sidebar = sidebarReducer(this._state.sidebar, action);
+
         this._callSubscriber(this._state);
     }
 }
+
 
 export default store;
 window.store = store;
