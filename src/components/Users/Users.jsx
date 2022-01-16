@@ -1,5 +1,6 @@
 import React from "react";
 import axios from "axios";
+import s from './users.module.css'
 
 class Users extends React.Component {
     constructor(props) {
@@ -12,14 +13,28 @@ class Users extends React.Component {
 
     componentDidMount() {
         alert('Component Users didMount')
-        axios.get('https://social-network.samuraijs.com/api/1.0/users?count=5')
+        axios.get( `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${this.props.pageCurrent}`)
+            .then((response) => {
+                this.props.setUsers(response.data.items)
+                this.props.setTotalUsersCount(response.data.totalCount)
+            })
+    }
+    onPageChanged = (p) => {
+        this.props.changePage(p)
+        axios.get( `https://social-network.samuraijs.com/api/1.0/users?count=${this.props.pageSize}&page=${p}`)
             .then((response) => {
                 this.props.setUsers(response.data.items)
             })
     }
-
     render() {
+        let pages = []
+        let maxPageNumber = Math.ceil(this.props.count / this.props.pageSize)
+        for (let i=1; i<=maxPageNumber; i++) {
+            pages.push(<span className={this.props.pageCurrent == i && s.currentPage}
+            onClick={(e)=> this.onPageChanged(i)}>{i}</span>)
+        }
         return <>
+            {pages}
             {
                 this.props.users.map(u => {
                     return <div key={u.id}>
