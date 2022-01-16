@@ -6,7 +6,7 @@ const CHANGE_TOTAL_USERS_COUNT = 'CHANGE_TOTAL_USERS_COUNT';
 
 let initialState = {
     users: [],
-    pageSize: 2,
+    pageSize: 10,
     count: 0,
     pageCurrent: 1
 };
