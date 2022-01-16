@@ -2,7 +2,6 @@ import React from "react";
 import s from './users.module.css'
 
 let Users = (props) => {
-
         let pages = []
         let maxPageNumber = Math.ceil(props.count / props.pageSize)
         for (let i=1; i<=maxPageNumber; i++) {
