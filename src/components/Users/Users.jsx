@@ -1,20 +1,25 @@
 import React from "react";
 import axios from "axios";
 
+class Users extends React.Component {
+    constructor(props) {
+        super(props);
+    }
 
-class UsersC extends React.Component {
-    getUsers = () => {
-        if (this.props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users?count=5')
-                .then((response) => {
-                    this.props.setUsers(response.data.items)
-                })
-        }
+    componentWillUnmount() {
+        alert('Component Users willUnmount')
+    }
+
+    componentDidMount() {
+        alert('Component Users didMount')
+        axios.get('https://social-network.samuraijs.com/api/1.0/users?count=5')
+            .then((response) => {
+                this.props.setUsers(response.data.items)
+            })
     }
 
     render() {
         return <>
-            <button onClick={() => this.getUsers()}>Get users</button>
             {
                 this.props.users.map(u => {
                     return <div key={u.id}>
@@ -37,4 +42,4 @@ class UsersC extends React.Component {
     }
 }
 
-export default UsersC
+export default Users
